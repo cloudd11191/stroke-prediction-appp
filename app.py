@@ -90,6 +90,9 @@ if st.sidebar.button("Generate Diagnosis"):
         'smoking_status': [smoking_status]
     })
 
+    # THE BYPASS FIX: Duplicate the row to prevent the 1D/2D flattening bug
+    input_data = pd.concat([input_data, input_data], ignore_index=True)
+
     # Run Prediction
     prediction = model.predict(input_data)
     probability = model.predict_proba(input_data)[0][1]
